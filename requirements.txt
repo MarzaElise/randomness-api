@@ -1,3 +1,5 @@
 uvicorn
 fastapi
 aiohttp
+slowapi
+discord
