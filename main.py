@@ -13,28 +13,29 @@ async def fetch_text():
             return text
 
 async def fetch_fact():
-    a = []
     async with aiohttp.ClientSession() as ses:
         async with ses.get("https://some-random-api.ml/facts/cat") as res:
             data = await res.json()
             try:
                 fact = data["fact"]
-                a.append(fact)
             except KeyError:
-                return a
-    return a
+                return None
+            else:
+                return fact
 
 async def get_lis():
     lis = []
     for i in range(30):
         try:
             text = await fetch_text()
-            facts = await fetch_fact()
         except:
             continue
         else:
             lis.append(text)
-            lis.extend(facts)
+    for i in range(40):
+        fact = fetch_fact()
+        if fact:
+            lis.append(fact)
     random_facts.extend(lis)
     return random_facts
 
