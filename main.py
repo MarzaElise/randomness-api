@@ -54,8 +54,8 @@ async def home():
     return RedirectResponse("/docs")
 
 @app.get("/fact")
-@limiter.limit("3/second")
-async def fact(request : Request, respone : Response):
+# @limiter.limit("3/second")
+async def fact():
     '''Generate a random fact. More facts will be added very soon'''
     return {"fact" : "Fun Fact: the fact endpoint is dead until i find a way to not get rate limitted"}
     # facts = await get_lis()
