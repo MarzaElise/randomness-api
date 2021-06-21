@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from Helpers import random_facts
 from Helpers import website as web
 from fastapi.responses import RedirectResponse
@@ -65,7 +65,7 @@ async def fact(request : Request):
 
 @app.get("/website")
 @limiter.limit("180/minute", error_message="You Have Hit the rate limit of 180 requests per minute. Try again Later")
-async def website(request : Request):
+async def website(request : Request, respone : Response):
     '''Generate one random useless but somewhat interesting website from a total of 200+ website links'''
     e = random.choice(web)
     a = web.index(e)
