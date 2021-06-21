@@ -64,7 +64,7 @@ async def fact(request : Request):
     # return {"fact" : fact, "index" : index, "total" : total}
 
 @app.get("/website")
-@limiter.limit("180/minute")
+@limiter.limit("180/minute", error_message="You Have Hit the rate limit of 180 requests per minute. Try again Later")
 async def website(request : Request):
     '''Generate one random useless but somewhat interesting website from a total of 200+ website links'''
     e = random.choice(web)
