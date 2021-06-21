@@ -5,7 +5,6 @@ from fastapi.responses import RedirectResponse
 import aiohttp
 import random
 app = FastAPI(debug=True, title="randomness", description="An api you can use to generate random facts and websites", version="1.0.0")
-
 async def fetch_text():
     async with aiohttp.ClientSession() as ses:
         async with ses.get("https://uselessfacts.jsph.pl/random.json?language=en") as res:
@@ -15,26 +14,28 @@ async def fetch_text():
 
 async def fetch_fact():
     a = []
-    for i in range(43):
-        async with aiohttp.ClientSession() as ses:
-            async with ses.get("https://some-random-api.ml/facts/cat") as res:
-                data = await res.json()
-                try:
-                    fact = data["fact"]
-                    a.append(fact)
-                except KeyError:
-                    return a
+    async with aiohttp.ClientSession() as ses:
+        async with ses.get("https://some-random-api.ml/facts/cat") as res:
+            data = await res.json()
+            try:
+                fact = data["fact"]
+                a.append(fact)
+            except KeyError:
+                return a
     return a
 
 async def get_lis():
     lis = []
     for i in range(30):
-        text = await fetch_text()
-        facts = await fetch_fact()
-        lis.append(text)
-        lis.extend(facts)
-    for text in lis:
-        random_facts.append(text)
+        try:
+            text = await fetch_text()
+            facts = await fetch_fact()
+        except:
+            continue
+        else:
+            lis.append(text)
+            lis.extend(facts)
+    random_facts.extend(lis)
     return random_facts
 
 @app.get("/")

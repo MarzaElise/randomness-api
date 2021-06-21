@@ -1,0 +1,11 @@
+{
+    "[python]": {
+        "gitlens.codeLens.symbolScopes": [
+            "!Module"
+        ],
+        "editor.autoClosingBrackets": "always",
+        "editor.autoClosingDelete": "always",
+      "editor.autoIndent": "advanced",
+        "editor.tabSize": 4
+    },
+}
