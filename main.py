@@ -50,7 +50,7 @@ async def get_lis():
 @app.get("/")
 async def home():
     '''Home page of the API this will redirect to the /docs page since i dont want to do shit for the home page'''
-    return RedirectResponse("/redoc")
+    return RedirectResponse("/docs")
 
 @app.get("/fact")
 @limiter.limit("180/minute")
