@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request
+from starlette.responses import Response
 from Helpers import random_facts
 from Helpers import website as web
 from fastapi.responses import RedirectResponse
@@ -9,7 +10,7 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
 limiter = Limiter(key_func=get_remote_address, headers_enabled=True)
-app = FastAPI(debug=True, title="randomness", description="An api you can use to generate random facts and websites", version="1.0.0")
+app = FastAPI(debug=True, title="randomness", description="An api you can use to generate random facts and websites", version="1.0.0a")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
