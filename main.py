@@ -65,7 +65,7 @@ async def fact():
     # return {"fact" : fact, "index" : index, "total" : total}
 
 @app.get("/website")
-@limiter.limit("3/second")
+@limiter.limit("3/minute")
 async def website(request : Request, response : Response):
     '''Generate one random useless but somewhat interesting website from a total of 70+ website links'''
     e = random.choice(web)
