@@ -1,5 +1,4 @@
-from fastapi import FastAPI
-
+from fastapi import FastAPI, Request
 from Helpers import random_facts
 from Helpers import website as web
 from fastapi.responses import RedirectResponse
@@ -54,8 +53,8 @@ async def home():
     return RedirectResponse("/redoc")
 
 @app.get("/fact")
-# @limiter.limit("180/minute")
-async def fact():
+@limiter.limit("180/minute")
+async def fact(request : Request):
     '''Generate a random fact. More facts will be added very soon'''
     return {"fact" : "Fun Fact: the fact endpoint is dead until i find a way to not get rate limitted"}
     # facts = await get_lis()
@@ -66,7 +65,7 @@ async def fact():
 
 @app.get("/website")
 @limiter.limit("180/minute")
-async def website():
+async def website(request : Request):
     '''Generate one random useless but somewhat interesting website from a total of 200+ website links'''
     e = random.choice(web)
     a = web.index(e)
