@@ -33,7 +33,7 @@ async def get_lis():
         else:
             lis.append(text)
     for i in range(40):
-        fact = fetch_fact()
+        fact = await fetch_fact()
         if fact:
             lis.append(fact)
     random_facts.extend(lis)
