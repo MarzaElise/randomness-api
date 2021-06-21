@@ -8,7 +8,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_remote_address, headers_enabled=True)
 app = FastAPI(debug=True, title="randomness", description="An api you can use to generate random facts and websites", version="1.0.0")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -53,8 +53,8 @@ async def home():
     return RedirectResponse("/docs")
 
 @app.get("/fact")
-@limiter.limit("180/minute")
-async def fact(request : Request):
+@limiter.limit("3/second")
+async def fact(request : Request, respone : Response):
     '''Generate a random fact. More facts will be added very soon'''
     return {"fact" : "Fun Fact: the fact endpoint is dead until i find a way to not get rate limitted"}
     # facts = await get_lis()
@@ -64,9 +64,9 @@ async def fact(request : Request):
     # return {"fact" : fact, "index" : index, "total" : total}
 
 @app.get("/website")
-@limiter.limit("180/minute", error_message="You Have Hit the rate limit of 180 requests per minute. Try again Later")
-async def website(request : Request, respone : Response):
-    '''Generate one random useless but somewhat interesting website from a total of 200+ website links'''
+@limiter.limit("3/second")
+async def website(request : Request, response : Response):
+    '''Generate one random useless but somewhat interesting website from a total of 70+ website links'''
     e = random.choice(web)
     a = web.index(e)
     total = len(web) - 1
