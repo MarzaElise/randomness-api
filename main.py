@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request
-from starlette.responses import Response
+from fastapi import FastAPI, Request, Response
+# from starlette.responses import Response
 from Helpers import random_facts
 from Helpers import website as web
 from fastapi.responses import RedirectResponse
