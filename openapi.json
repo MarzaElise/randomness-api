@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "randomness",
+        "description": "An api you can use to generate random facts and websites",
+        "version": "1.0.0a"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Home",
+                "description": "Home page of the API this will redirect to the /docs page since i dont want to do shit for the home page",
+                "operationId": "home__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/fact": {
+            "get": {
+                "summary": "Fact",
+                "description": "Generate a random fact. More facts will be added very soon",
+                "operationId": "fact_fact_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/website": {
+            "get": {
+                "summary": "Website",
+                "description": "Generate one random useless but somewhat interesting website from a total of 70+ website links",
+                "operationId": "website_website_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
