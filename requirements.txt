@@ -2,4 +2,4 @@ uvicorn
 fastapi
 aiohttp
 slowapi
-discord
+discord.py
