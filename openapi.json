@@ -3,14 +3,28 @@
     "info": {
         "title": "randomness",
         "description": "An api you can use to generate random facts and websites",
-        "version": "1.0.0a"
+        "version": "1.0.2"
     },
     "paths": {
-        "/": {
+        "/fact": {
             "get": {
-                "summary": "Home",
-                "description": "Home page of the API this will redirect to the /docs page since i dont want to do shit for the home page",
-                "operationId": "home__get",
+                "summary": "Fact",
+                "description": "Generate a random fact.\n\nParmeters: index (int) The index of the fact requested \n\nRatelimit: 3 requests per second ",
+                "operationId": "fact_fact_get",
+                "parameters": 
+                Array[
+                    1
+                ][
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Index",
+                            "type": "integer"
+                        },
+                        "name": "index",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -19,21 +33,14 @@
                                 "schema": {}
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/fact": {
-            "get": {
-                "summary": "Fact",
-                "description": "Generate a random fact. More facts will be added very soon",
-                "operationId": "fact_fact_get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
+                    },
+                    "422": {
+                        "description": "Validation Error",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
                             }
                         }
                     }
@@ -43,7 +50,7 @@
         "/website": {
             "get": {
                 "summary": "Website",
-                "description": "Generate one random useless but somewhat interesting website from a total of 70+ website links",
+                "description": "Generate one random, useless but somewhat interesting website's link from a total of 70+ website links \n\nRatelimit: 3 requests per second",
                 "operationId": "website_website_get",
                 "responses": {
                     "200": {
@@ -53,6 +60,52 @@
                                 "schema": {}
                             }
                         }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": 
+                Array[
+                    3
+                ][
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
                     }
                 }
             }
