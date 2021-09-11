@@ -83,7 +83,7 @@ async def hourly():
 @tasks.loop(hours=1)
 async def every_hour():
     """The task that is looped every hour"""
-    for i in range(30):
+    for _ in range(30):
         try:
             await hourly()
         except:
@@ -92,7 +92,7 @@ async def every_hour():
 
 @tasks.loop(hours=24)
 async def daily():
-    for i in range(30):
+    for _ in range(30):
         try:
             await hourly()
         except:

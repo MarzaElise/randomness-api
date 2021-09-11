@@ -45,6 +45,7 @@ async def home():
     """
     return RedirectResponse("/docs")
 
+
 @app.get("/fact")
 @limiter.limit("3/second")
 async def fact(request: Request, response: Response, index: int = None):
@@ -76,7 +77,7 @@ async def fact(request: Request, response: Response, index: int = None):
 @limiter.limit("3/second")
 async def website(request: Request, response: Response):
     """
-    Generate one random, useless but somewhat interesting website's 
+    Generate one random, useless but somewhat interesting website's
     link from a total of 70+ website links \n
     Note: You are responsible for your own safety. \n
     Ratelimit: 3 requests per second
